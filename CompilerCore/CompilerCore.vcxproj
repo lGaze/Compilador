@@ -132,13 +132,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CErrorsModule.h" />
+    <ClInclude Include="CLexAnalizer.h" />
     <ClInclude Include="CompilerCore.h" />
+    <ClInclude Include="CToken.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="CErrorsModule.cpp" />
+    <ClCompile Include="CLexAnalizer.cpp" />
     <ClCompile Include="CompilerCore.cpp" />
+    <ClCompile Include="CToken.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

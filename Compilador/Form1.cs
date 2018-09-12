@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Compilador
 {
@@ -15,8 +16,11 @@ namespace Compilador
         CompilerCore.Manager CompilerCore;
         bool textChanged;
         bool alreadyExist;
+        string openPath;
+        string savePath;
         SaveFileDialog saveDialog;
         OpenFileDialog openDialog;
+
         public Form1()
         {
             InitializeComponent();
@@ -45,43 +49,70 @@ namespace Compilador
                 DialogResult result1 = MessageBox.Show("      Deseas Guardar?", "", MessageBoxButtons.YesNo);
                 if (result1 == DialogResult.Yes)
                 {
-                    saveAsToolStripMenuItem_Click(sender, e);
+                    if(alreadyExist)
+                    {
+                        saveToolStripMenuItem_Click(sender, e);
+                        textSrc.Clear();
+                    }
+                    else
+                    {
+                         saveAsToolStripMenuItem_Click(sender, e);
+                        textSrc.Clear();                 
+                    }
                 }
 
                 else
                 {
                     textSrc.Clear();
+                    
                 }
             }
             else
             {
                 textSrc.Clear();
+                
             }
+            alreadyExist = false;
+            textChanged = false;
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            alreadyExist = true;
+
             if (textChanged)
             {
                 DialogResult result1 = MessageBox.Show("      Deseas Guardar?", "", MessageBoxButtons.YesNo);
                 if (result1 == DialogResult.Yes)
                 {
                     saveAsToolStripMenuItem_Click(sender, e);
-                    openDialog.ShowDialog();
-                    alreadyExist = true;
+                  if (openDialog.ShowDialog() == DialogResult.OK)
+                  {
+                        openPath = openDialog.FileName;
+                        textSrc.Lines = File.ReadAllLines(openPath);
+                       
+                  }
+
                 }
                 else
                 {
-                    openDialog.ShowDialog();
-                    alreadyExist = true;
+                    if (openDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        openPath = openDialog.FileName;
+                        textSrc.Lines = File.ReadAllLines(openPath);         
+                    } 
                 }
 
             }
             else
             {
-                openDialog.ShowDialog();
-                alreadyExist = true;
+                if (openDialog.ShowDialog() == DialogResult.OK)
+                {
+                    openPath = openDialog.FileName;
+                    textSrc.Lines = File.ReadAllLines(openPath);
+                }
             }
+            textChanged = false;
 
         }
 
@@ -89,18 +120,26 @@ namespace Compilador
         {
             if (alreadyExist)
             {
-                //guarda incrementalmente
+                File.WriteAllLines(openPath, textSrc.Lines); 
             }
             else
             {
                 saveAsToolStripMenuItem_Click(sender, e);
             }
 
+            textChanged = false;
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveDialog.ShowDialog();
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                savePath = saveDialog.FileName;
+                File.WriteAllLines(savePath, textSrc.Lines);
+               
+            }
+            textChanged = false;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

@@ -24,6 +24,15 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CErrorsModule.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CLexAnalizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CToken.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CompilerCore.cpp">
@@ -33,6 +42,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CErrorsModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CLexAnalizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CToken.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
