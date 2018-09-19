@@ -10,6 +10,7 @@ using namespace System;
 #include <map>
 #include <vector>
 #include <stack>
+#include "ctype.h"
 using namespace std;
 
 namespace CompilerCore
@@ -26,9 +27,19 @@ namespace CompilerCore
 	{
 		S_START = 0,
 		S_ID,
-
+		S_KEYWORDS,
+		S_OPER_LOGICOS,
+		S_OPER_LOGICO_UNITARIO,
+		S_OPER_ARITMETICOS,
+		S_OPER_RELACIONALES,
+		S_OPER_ASIGNACION,
+		S_DELIM,
+		S_INT,
+		S_FLOAT,
+		S_STRING
 
 	};
+
 	// LEX analyzer class
 	class CLexAnalyzer
 	{
@@ -49,8 +60,6 @@ namespace CompilerCore
 		~CLexAnalyzer();
 		
 		bool parseSourceCode(const char *sourceCode);
-		bool isAlpha(const char * currChar);
-		bool isDigit(const char * currChar);
 		bool addToken(std::string lex, TOKEN_TYPE type, int lineNum);
 		void reset();
 		void getTokens(std::vector<Token *> *tokensVec) const;
