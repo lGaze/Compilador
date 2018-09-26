@@ -85,13 +85,17 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)CompilerCore\Binaries\x86\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)CompilerCore\Intermediate\x86\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)CompilerCore\Binaries\x64\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)CompilerCore\Intermediate\x64\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -113,7 +117,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -133,16 +137,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Include\CErrorsModule.h" />
+    <ClInclude Include="Include\CGlobalNode.h" />
     <ClInclude Include="Include\CLexAnalizer.h" />
+    <ClInclude Include="Include\CLocalNode.h" />
     <ClInclude Include="Include\CompilerCore.h" />
+    <ClInclude Include="Include\CTabSym.h" />
     <ClInclude Include="Include\CToken.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Source\CErrorsModule.cpp" />
+    <ClCompile Include="Source\CGlobalNode.cpp" />
     <ClCompile Include="Source\CLexAnalizer.cpp" />
+    <ClCompile Include="Source\CLocalNode.cpp" />
     <ClCompile Include="Source\CompilerCore.cpp" />
+    <ClCompile Include="Source\CTabSym.cpp" />
     <ClCompile Include="Source\CToken.cpp" />
   </ItemGroup>
   <ItemGroup>

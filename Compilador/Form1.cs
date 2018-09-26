@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
+using System.Resources;
+using System.Diagnostics;
+using System.Management;
 
 namespace Compilador
 {
@@ -20,15 +24,69 @@ namespace Compilador
         string savePath;
         SaveFileDialog saveDialog;
         OpenFileDialog openDialog;
+        dynamic compillerDll;
 
         public Form1()
         {
             InitializeComponent();
             CompilerCore = new CompilerCore.Manager();
             textChanged = false;
-            alreadyExist = false;
+            alreadyExist = false;            
             saveDialog = new SaveFileDialog();
             openDialog = new OpenFileDialog();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string dllPath = "";
+
+            if (System.Environment.Is64BitProcess)
+            {
+                if (isDebuggable())
+                {
+                    dllPath = Path.Combine(getPath(), "x64\\Debug");
+                }
+                else
+                {
+                    dllPath = Path.Combine(getPath(), "x64\\Release");
+                }
+            }
+            else
+            {
+                if (isDebuggable())
+                {
+                    dllPath = Path.Combine(getPath(), "x86\\Debug");
+                }
+                else
+                {
+                    dllPath = Path.Combine(getPath(), "x86\\Release");
+                }
+            }
+
+            dllPath = Path.Combine(dllPath, "CompilerCore.dll");
+            var DLL = Assembly.LoadFile(dllPath);
+            var DLLType = DLL.GetType("CompilerCore.Manager");
+            compillerDll = Activator.CreateInstance(DLLType);
+            if (compillerDll == null)
+            {
+                
+            }
+        }
+
+        private bool isDebuggable()
+        {
+            object[] attribs = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(DebuggableAttribute), true);
+
+            if ((attribs != null) && (attribs.Length == 1))
+            {
+                DebuggableAttribute attribute = attribs[0] as DebuggableAttribute;
+
+                if (attribute.IsJITOptimizerDisabled && attribute.IsJITTrackingEnabled)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void textSrc_TextChanged(object sender, EventArgs e)
@@ -146,5 +204,18 @@ namespace Compilador
         {
             this.Close();
         }
+
+        private string getPath()
+        {
+            string FullPath = Application.StartupPath;
+
+            for (int i = 0; i < 4; i++)
+            {
+                FullPath = Directory.GetParent(FullPath).ToString();
+            }
+            FullPath = Path.Combine(FullPath, "CompilerCore\\Binaries\\");
+            return FullPath;
+        }
+
     }
 }
