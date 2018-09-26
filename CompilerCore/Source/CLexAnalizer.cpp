@@ -1,8 +1,9 @@
 #include "..\Include\CLexAnalizer.h"
 
-CompilerCore::CLexAnalyzer::CLexAnalyzer(ErrorsModule ^ errorsModule)
+CompilerCore::CLexAnalyzer::CLexAnalyzer(ErrorsModule ^ errorsModule) :managedRef_errorsModule(errorsModule)
 {
 	m_Keywords["var"		] = "";
+	m_Keywords["main"		] = "";
 	m_Keywords["int"		] = "";
 	m_Keywords["float"		] = "";
 	m_Keywords["string"		] = "";
@@ -55,15 +56,16 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				//Nex line '\n'
 				if (*currChar == '\n')
 				{
+					lineNumber++;
 					currChar++;
 				}
-				//Space ' '
-				if (*currChar == ' ')
+				//Tab and Space
+				else if (*currChar == '\t' || *currChar == ' ')
 				{
 					currChar++;
 				}
 				//ID, KEYWORD
-		    	if (isalpha(*currChar) || *currChar == '_')
+		    	else if (isalpha(*currChar) || *currChar == '_')
 		    	{
 		    		buffer.clear();
 		    		buffer.append(currChar, 1);
@@ -129,6 +131,11 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				//OPER ARIT
 				else if (*currChar == '+' || *currChar == '-' || *currChar == '/' || *currChar == '%' || *currChar == '*' || *currChar == '^')
 				{
+					if (*currChar == '/')
+					{
+						offset = currChar;
+						offset++;
+					}
 					buffer.clear();
 					buffer.append(currChar, 1);
 					m_state = S_OPER_ARITMETICO;
@@ -170,14 +177,24 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					m_state = S_OPER_DIMENSIONAL;
 					break;
 				}
+				//NINGUN CASO
+				else
+				{
+					const char * desc = "Simbolo invalido";
+					lineBuffer.append(currChar, 1);
+					managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
+					lineBuffer.clear();
+					currChar++;
+					break;
+				}
 				break;
 		    }
 		    
 		    case S_ID:
 		    {
-				bool finishedToken;
+				bool finishedToken = false;
 
-				if (  isalpha(*currChar) || *currChar == '_' || isdigit((int)*currChar))
+				if (  isalpha(*currChar) || *currChar == '_' || isdigit(*currChar))
 				{
 					buffer.append(currChar, 1);
 					currChar++;
@@ -212,6 +229,8 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 			{
 				if (*offset != *currChar)
 				{
+					const char * desc = "Operador logico invalido";
+					managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
 					break;
 				}
 				else
@@ -228,7 +247,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 
 			case S_OPER_LOGICO_UNITARIO:
 			{
-				bool finishedToken;
+				bool finishedToken = false;
 				if (*offset == '=')
 				{
 					currChar++;
@@ -250,6 +269,13 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 
 			case S_OPER_ARITMETICO:
 			{
+				if (*offset == '*')
+				{
+					currChar++;
+					buffer.append(currChar,1);
+					m_state = S_COMMENT;
+					break;
+				}
 				addToken(buffer.c_str(), OPER_ARITMETICOS, lineNumber);
 				currChar++;
 				m_state = S_START;
@@ -258,7 +284,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 
 			case S_OPER_RELACIONAL:
 			{
-				bool finishedToken;
+				bool finishedToken = false;
 				if (*offset != '=')
 				{
 					finishedToken = true;
@@ -307,7 +333,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 
 			case S_INT:
 			{
-				bool finishedToken;
+				bool finishedToken = false;
 
 			
 				if (isdigit(*currChar))
@@ -345,7 +371,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 
 			case S_FLOAT:
 			{
-				bool finishedToken;
+				bool finishedToken = false;
 
 
 				if (isdigit((int)*currChar))
@@ -373,7 +399,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 
 			case S_STRING:
 			{
-				bool finishedToken;
+				bool finishedToken = false;
 
 				if (*currChar != '"')
 				{
@@ -381,8 +407,9 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					currChar++;
 					if (*currChar == '\0')
 					{
-
-						//error
+						const char * desc = "String sin cerrar";
+						managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
+						break;
 					}
 					break;
 				}
@@ -413,6 +440,42 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				currChar++;
 				m_state = S_START;
 				break;
+			}
+
+			case S_COMMENT:
+			{
+				bool finishedComment = false;
+				currChar++;
+				offset = currChar;
+				offset++;
+				while (*currChar != '*' || *currChar != '\0')
+				{
+					
+					buffer.append(currChar, 1);
+					currChar++;
+					offset++;
+					if (*currChar == '*' && *offset == '/')
+					{
+						finishedComment = true;
+					}
+ 					if(*offset == '\0')
+					{
+						buffer.append(currChar, 1);
+						const char * desc = "Comentario sin cerrar";
+						lineBuffer.append(buffer);
+						managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
+						lineBuffer.clear();
+						currChar = offset;
+						break;
+					}
+					if (finishedComment)
+					{					
+						m_state = S_START;
+						currChar++;
+						currChar++;
+						break;
+					}
+				}	
 			}
 		}
 	}

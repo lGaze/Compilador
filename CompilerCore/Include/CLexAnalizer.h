@@ -4,7 +4,6 @@
 #include "vcclr.h"
 #include "../Include/CErrorsModule.h"
 #include "../Include/CToken.h"
-
 using namespace System;
 
 #include <map>
@@ -39,6 +38,7 @@ namespace CompilerCore
 		S_INT,
 		S_FLOAT,
 		S_STRING,
+		S_COMMENT,
 
 	};
 
@@ -46,8 +46,8 @@ namespace CompilerCore
 	class CLexAnalyzer
 	{
 	private:
-		msclr::gcroot<ErrorsModule ^> managedRef_errorsModule;
 
+		msclr::gcroot<ErrorsModule ^> managedRef_errorsModule;
 		std::map<std::string, std::string> m_Keywords;
 		std::vector<Token *> m_Tokens;
 
