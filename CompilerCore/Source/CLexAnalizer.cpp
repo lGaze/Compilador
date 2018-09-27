@@ -229,8 +229,12 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 			{
 				if (*offset != *currChar)
 				{
-					const char * desc = "Operador logico invalido";
+					const char * desc = "Operador logico incompleto";
+					lineBuffer.append(currChar, 1);
 					managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
+					lineBuffer.clear();
+					currChar++;
+					m_state = S_START;
 					break;
 				}
 				else
@@ -351,7 +355,6 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				{
 					buffer.append(currChar, 1);
 					m_state = S_FLOAT;
-					currChar++;
 					break;
 				}
 			
@@ -372,7 +375,16 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 			case S_FLOAT:
 			{
 				bool finishedToken = false;
-
+				currChar++;
+				if (isalpha(*currChar) || *currChar == ' ' || *currChar == '\n'|| *currChar == '\0')
+				{
+					const char * desc = "Numero Flotante invalido";
+					lineBuffer.append(buffer);
+					managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
+					lineBuffer.clear();
+					m_state = S_START;
+					break;
+				}
 
 				if (isdigit((int)*currChar))
 				{
@@ -405,10 +417,13 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				{
 					buffer.append(currChar, 1);
 					currChar++;
-					if (*currChar == '\0')
+					if (*currChar == '\0' || *currChar == '\n')
 					{
 						const char * desc = "String sin cerrar";
+						lineBuffer.append(buffer);
 						managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
+						lineBuffer.clear();
+						m_state = S_START;
 						break;
 					}
 					break;
@@ -460,16 +475,29 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					}
  					if(*offset == '\0')
 					{
-						buffer.append(currChar, 1);
+						bool a = true;
+						currChar = sourceCode;
+						buffer.clear();
+						while (a)
+						{
+							if (*currChar == '\0' || *currChar == '\n')
+							{
+								a = false;
+							}
+							buffer.append(currChar, 1);
+							currChar++;
+						}
+					
 						const char * desc = "Comentario sin cerrar";
 						lineBuffer.append(buffer);
 						managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
 						lineBuffer.clear();
 						currChar = offset;
+						m_state = S_START;
 						break;
 					}
 					if (finishedComment)
-					{					
+					{			
 						m_state = S_START;
 						currChar++;
 						currChar++;

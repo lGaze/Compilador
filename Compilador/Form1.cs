@@ -96,6 +96,7 @@ namespace Compilador
 
         private void compileProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            textOutput.Clear();
             String[] complationDetails = CompilerCore.compileProgram(textSrc.Text);
             textOutput.Lines = complationDetails;
         }

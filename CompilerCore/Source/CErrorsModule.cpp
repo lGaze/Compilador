@@ -29,6 +29,10 @@ CompilerCore::ErrorsModule::~ErrorsModule()
 void CompilerCore::ErrorsModule::reset()
 {
 	m_numErrors = 0;
+	for (int i = 0; i < MAX_COMPILER_ERRORS; ++i)
+	{
+		m_errorsArray[i] = gcnew String("");
+	}
 }
 
 /*
@@ -55,7 +59,6 @@ bool CompilerCore::ErrorsModule::addError(ERROR_PHASE errorPhase, int lineNumber
 		{
 			errLine = errorLine;
 		}
-
 		m_errorsArray->SetValue(String::Format("<{0}>: \t{1} \t\t{2} \t\t{3}", errorPhase.ToString(), lineNumber, errorDesc, errLine), m_numErrors);
 		++m_numErrors;
 
