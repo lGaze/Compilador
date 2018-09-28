@@ -97,8 +97,28 @@ namespace Compilador
         private void compileProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
             textOutput.Clear();
-            String[] complationDetails = CompilerCore.compileProgram(textSrc.Text);
-            textOutput.Lines = complationDetails;
+            Tokens.Rows.Clear();
+            Tokens.Refresh();
+            String[] compilationDetails = CompilerCore.compileProgram(textSrc.Text);
+            int a = Array.FindIndex(compilationDetails, m => m == "@");
+            String[] lexErrors = new string[a];
+            Array.Copy(compilationDetails,lexErrors,a);
+            textOutput.Lines = lexErrors;
+            String[] lexTokens = new string[compilationDetails.Length - a - 1];
+            Array.Copy(compilationDetails, a + 1, lexTokens, 0, lexTokens.Length);
+            object[] obj = new object[lexTokens.Length];
+            char splitter = '\t';
+            for (int i = 0; i < lexTokens.Length; i++)
+            {
+                obj[i] = new string[3];
+                obj[i] = lexTokens[i].Split(splitter);
+            }
+            foreach (string[] stringer in obj ) //xd
+            {
+                Tokens.Rows.Add(stringer);
+            }
+
+
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)

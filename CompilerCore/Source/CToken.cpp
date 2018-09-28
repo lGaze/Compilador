@@ -24,8 +24,8 @@ std::string CompilerCore::Token::getTypeStr()
 	if (m_Type == 8) return "OPER_ARITMETICOS";
 	if (m_Type == 9) return "OPER_RELACIONALES";
 	if (m_Type == 10) return "OPER_ASIGNACION";
-	if (m_Type == 12) return "OPER_AGRUPACION";
-	if (m_Type == 13) return "OPER_DIMENSIONAL";
-	if (m_Type == 14) return "DELIM";
+	if (m_Type == 11) return "OPER_AGRUPACION";
+	if (m_Type == 12) return "OPER_DIMENSIONAL";
+	if (m_Type == 13) return "DELIM";
 	return "";
 }

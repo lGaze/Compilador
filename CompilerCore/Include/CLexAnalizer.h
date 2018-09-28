@@ -9,7 +9,7 @@ using namespace System;
 #include <map>
 #include <vector>
 #include <stack>
-#include "ctype.h"
+
 using namespace std;
 
 namespace CompilerCore
@@ -66,6 +66,8 @@ namespace CompilerCore
 		bool addToken(std::string lex, TOKEN_TYPE type, int lineNum);
 		void reset();
 		void getTokens(std::vector<Token *> *tokensVec) const;
+		bool is_Alpha(const char* currchar);
+		bool is_Digit(const char* currchar);
 	};
 }
 

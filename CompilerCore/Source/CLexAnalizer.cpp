@@ -24,12 +24,17 @@ CompilerCore::CLexAnalyzer::CLexAnalyzer(ErrorsModule ^ errorsModule) :managedRe
 	m_Keywords["return"		] = "";
 	m_Keywords["true"		] = "";
 	m_Keywords["false"		] = "";
+
+
+
 }
 
 /*
 */
 CompilerCore::CLexAnalyzer::~CLexAnalyzer()
 {
+	managedRef_errorsModule->reset();
+	m_Tokens.clear();
 }
 
 /*
@@ -65,21 +70,17 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					currChar++;
 				}
 				//ID, KEYWORD
-		    	else if (isalpha(*currChar) || *currChar == '_')
+		    	else if (is_Alpha(currChar) || *currChar == '_')
 		    	{
 		    		buffer.clear();
-		    		buffer.append(currChar, 1);
 		    		m_state = S_ID;
-		    		currChar++;
 					break;
 		    	}
 				//INT
-		    	else if (isdigit((int)*currChar))
+		    	else if (is_Digit(currChar))
 		    	{
 					buffer.clear();
-					buffer.append(currChar, 1);
 					m_state = S_INT;
-					currChar++;
 					break;
 		    	}
 				//FLOAT
@@ -88,16 +89,13 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					buffer.clear();
 					buffer.append(currChar, 1);
 					m_state = S_FLOAT;
-					currChar++;
 					break;
 				}
 				// STRING
 				else if (*currChar == '"')
 				{
 					buffer.clear();
-					buffer.append(currChar, 1);
 					m_state = S_STRING;
-					currChar++;
 					break;
 				}
 				//DELIM
@@ -183,7 +181,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					const char * desc = "Simbolo invalido";
 					lineBuffer.append(currChar, 1);
 					managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
-					lineBuffer.clear();
+					//lineBuffer.clear();
 					currChar++;
 					break;
 				}
@@ -192,13 +190,15 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 		    
 		    case S_ID:
 		    {
+				buffer.append(currChar, 1);
+				currChar++;
 				bool finishedToken = false;
 
-				if (  isalpha(*currChar) || *currChar == '_' || isdigit(*currChar))
+				if (  is_Alpha(currChar) || *currChar == '_' || is_Digit(currChar))
 				{
 					buffer.append(currChar, 1);
 					currChar++;
-					if (*currChar == '\0')
+					if (*currChar == '\0' || *currChar == ' ' || !is_Alpha(currChar) && !is_Digit(currChar) && *currChar != '_')
 					{
 						finishedToken = true;
 					}
@@ -220,6 +220,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 						addToken(buffer.c_str(), ID, lineNumber);
 					}
 					m_state = S_START;
+					finishedToken = false;
 					break;
 				}
 				break;
@@ -267,6 +268,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					addToken(buffer.c_str(), OPER_LOGICO_UNARIO, lineNumber);
 					m_state = S_START;
 					currChar++;
+					finishedToken = false;
 					break;
 				}
 			}
@@ -303,7 +305,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				{
 				    addToken(buffer.c_str(), OPER_RELACIONALES, lineNumber);
 					m_state = S_START;
-					//currChar++;
+					finishedToken = false;
 					break;
 				}
 				break;
@@ -338,9 +340,10 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 			case S_INT:
 			{
 				bool finishedToken = false;
-
+				buffer.append(currChar, 1);
+				currChar++;
 			
-				if (isdigit(*currChar))
+				if (is_Digit(currChar))
 				{
 					buffer.append(currChar, 1);
 					currChar++;
@@ -367,6 +370,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				{
 					addToken(buffer.c_str(), INT, lineNumber);
 					m_state = S_START;
+					finishedToken = false;
 					break;
 				}
 				break;
@@ -374,23 +378,27 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 
 			case S_FLOAT:
 			{
+				offset = currChar;
 				bool finishedToken = false;
 				currChar++;
-				if (isalpha(*currChar) || *currChar == ' ' || *currChar == '\n'|| *currChar == '\0')
+
+				if (*offset == '.' && !is_Digit(currChar))
 				{
+					buffer.append(currChar, 1);
 					const char * desc = "Numero Flotante invalido";
 					lineBuffer.append(buffer);
 					managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
 					lineBuffer.clear();
+					currChar++;
 					m_state = S_START;
 					break;
 				}
 
-				if (isdigit((int)*currChar))
+				if (is_Digit(currChar))
 				{
 					buffer.append(currChar, 1);
 					currChar++;
-					if (*currChar == '\0')
+					if (*currChar == '\0' || !is_Digit(currChar))
 					{
 						finishedToken = true;
 					}					
@@ -404,6 +412,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 				{
 					addToken(buffer.c_str(), FLOAT, lineNumber);
 					m_state = S_START;
+					finishedToken = false;
 					break;
 				}
 				break;
@@ -412,6 +421,8 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 			case S_STRING:
 			{
 				bool finishedToken = false;
+				buffer.append(currChar, 1);
+				currChar++;
 
 				if (*currChar != '"')
 				{
@@ -437,6 +448,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					addToken(buffer.c_str(), STRING, lineNumber);
 					currChar++;
 					m_state = S_START;
+					finishedToken = false;
 					break;
 				}
 			}
@@ -475,19 +487,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 					}
  					if(*offset == '\0')
 					{
-						bool a = true;
-						currChar = sourceCode;
-						buffer.clear();
-						while (a)
-						{
-							if (*currChar == '\0' || *currChar == '\n')
-							{
-								a = false;
-							}
-							buffer.append(currChar, 1);
-							currChar++;
-						}
-					
+						bool a = true;		
 						const char * desc = "Comentario sin cerrar";
 						lineBuffer.append(buffer);
 						managedRef_errorsModule->addErrorLex(lineNumber, desc, lineBuffer.c_str());
@@ -501,6 +501,7 @@ bool CompilerCore::CLexAnalyzer::parseSourceCode(const char * sourceCode)
 						m_state = S_START;
 						currChar++;
 						currChar++;
+						finishedComment = false;
 						break;
 					}
 				}	
@@ -525,6 +526,8 @@ bool CompilerCore::CLexAnalyzer::addToken(std::string lex, TOKEN_TYPE type, int 
 */
 void CompilerCore::CLexAnalyzer::reset()
 {
+	managedRef_errorsModule->reset();
+	m_Tokens.clear();
 }
 
 /*
@@ -532,4 +535,26 @@ void CompilerCore::CLexAnalyzer::reset()
 void CompilerCore::CLexAnalyzer::getTokens(std::vector<Token*>* tokensVec) const
 {
 	*tokensVec = m_Tokens;
+}
+
+/*
+*/
+bool CompilerCore::CLexAnalyzer::is_Alpha(const char * currchar)
+{
+	if ((int)*currchar > 64 && (int)*currchar < 91 || (int)*currchar > 96 && (int)*currchar < 123)
+	{
+		return true;
+	}
+	return false;
+}
+
+/*
+*/
+bool CompilerCore::CLexAnalyzer::is_Digit(const char * currchar)
+{
+	if ((int)*currchar > 47 && (int)*currchar < 58)
+	{
+		return true;
+	}
+	return false;
 }
