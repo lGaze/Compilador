@@ -531,4 +531,5 @@ void CompilerCore::CLexAnalyzer::reset()
 */
 void CompilerCore::CLexAnalyzer::getTokens(std::vector<Token*>* tokensVec) const
 {
+	*tokensVec = m_Tokens;
 }

@@ -60,7 +60,8 @@ namespace CompilerCore
 
 		CLexAnalyzer(ErrorsModule ^errorsModule);
 		~CLexAnalyzer();
-		
+
+		const msclr::gcroot<ErrorsModule ^> getErrors() { return managedRef_errorsModule; }
 		bool parseSourceCode(const char *sourceCode);
 		bool addToken(std::string lex, TOKEN_TYPE type, int lineNum);
 		void reset();
