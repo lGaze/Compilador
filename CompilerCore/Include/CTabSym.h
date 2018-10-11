@@ -10,10 +10,11 @@ using std::string;
 class CTabSym
 {
 public:
+
 	CTabSym();
 	~CTabSym();
-	map<string, CGlobalNode*> m_symbols;
 
+	map<string, CGlobalNode*> m_symbols;
 	string getSymbolType();
 	string getSymbolScope();
 	int getSymbolDim();

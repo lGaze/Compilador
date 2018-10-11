@@ -50,11 +50,9 @@ namespace CompilerCore
 		msclr::gcroot<ErrorsModule ^> managedRef_errorsModule;
 		std::map<std::string, std::string> m_Keywords;
 		std::vector<Token *> m_Tokens;
-
 		LEX_STATE m_state;
 
-		// ...
-		// ...
+		int m_currentToken = 0;
 
 	public:
 
@@ -64,10 +62,20 @@ namespace CompilerCore
 		const msclr::gcroot<ErrorsModule ^> getErrors() { return managedRef_errorsModule; }
 		bool parseSourceCode(const char *sourceCode);
 		bool addToken(std::string lex, TOKEN_TYPE type, int lineNum);
-		void reset();
 		void getTokens(std::vector<Token *> *tokensVec) const;
+
 		bool is_Alpha(const char* currchar);
 		bool is_Digit(const char* currchar);
+		void reset();
+		inline Token * peekToken(int i)
+		{
+			int tokenToPeek = m_currentToken + i;
+			if (tokenToPeek > 0 && tokenToPeek < m_Tokens.size())
+			{
+				return m_Tokens[tokenToPeek];
+			}
+			return nullptr;
+		}
 	};
 }
 

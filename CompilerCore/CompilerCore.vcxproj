@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,6 +141,13 @@
     <ClInclude Include="Include\CLexAnalizer.h" />
     <ClInclude Include="Include\CLocalNode.h" />
     <ClInclude Include="Include\CompilerCore.h" />
+    <ClInclude Include="Include\CSynAnalizer.h" />
+    <ClInclude Include="Include\CSynProgramState.h" />
+    <ClInclude Include="Include\CSynDimentionState.h" />
+    <ClInclude Include="Include\CSynFuncState.h" />
+    <ClInclude Include="Include\CSynFunction_BlockState.h" />
+    <ClInclude Include="Include\CSynParamState.h" />
+    <ClInclude Include="Include\CSynVarState.h" />
     <ClInclude Include="Include\CTabSym.h" />
     <ClInclude Include="Include\CToken.h" />
     <ClInclude Include="resource.h" />
@@ -152,6 +159,13 @@
     <ClCompile Include="Source\CLexAnalizer.cpp" />
     <ClCompile Include="Source\CLocalNode.cpp" />
     <ClCompile Include="Source\CompilerCore.cpp" />
+    <ClCompile Include="Source\CSynAnalizer.cpp" />
+    <ClCompile Include="Source\CSynProgramState.cpp" />
+    <ClCompile Include="Source\CSynDimentionState.cpp" />
+    <ClCompile Include="Source\CSynFuncState.cpp" />
+    <ClCompile Include="Source\CSynFunction_BlockState.cpp" />
+    <ClCompile Include="Source\CSynParamState.cpp" />
+    <ClCompile Include="Source\CSynVarState.cpp" />
     <ClCompile Include="Source\CTabSym.cpp" />
     <ClCompile Include="Source\CToken.cpp" />
   </ItemGroup>

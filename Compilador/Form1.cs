@@ -17,7 +17,7 @@ namespace Compilador
 {
     public partial class Form1 : Form
     {
-        CompilerCore.Manager CompilerCore;
+       
         bool textChanged;
         bool alreadyExist;
         string openPath;
@@ -25,6 +25,7 @@ namespace Compilador
         SaveFileDialog saveDialog;
         OpenFileDialog openDialog;
         dynamic compillerDll;
+        CompilerCore.Manager CompilerCore;
 
         public Form1()
         {

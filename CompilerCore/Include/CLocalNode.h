@@ -5,6 +5,7 @@ class CLocalNode
 public:
 	CLocalNode();
 	~CLocalNode();
+
 	string m_type;
 	string m_funcName;
 	int m_dimen;

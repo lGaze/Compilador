@@ -519,6 +519,7 @@ bool CompilerCore::CLexAnalyzer::addToken(std::string lex, TOKEN_TYPE type, int 
 {
 	Token * token = new Token(lex, type, lineNum);
 	m_Tokens.push_back(token);
+	m_currentToken++;
 	return true;
 }
 
