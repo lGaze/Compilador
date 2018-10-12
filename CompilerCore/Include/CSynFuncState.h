@@ -6,11 +6,12 @@ namespace CompilerCore {
 	class CSynFuncState : public CSynProgramState
 	{
 	public:
-		CSynFuncState(CLexAnalyzer * lex);
+		CSynFuncState(CLexAnalyzer * lex, CSynAnalizer * syn);
 		~CSynFuncState();
 		void checkSyntax();
 
 	private:
-
+		CLexAnalyzer * m_lex;
+		CSynAnalizer * m_syn;
 	};
 }

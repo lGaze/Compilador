@@ -1,13 +1,17 @@
 #include "..\Include\CSynFuncState.h"
 
-CSynFuncState::CSynFuncState()
+
+CompilerCore::CSynFuncState::CSynFuncState(CLexAnalyzer * lex, CSynAnalizer * syn)
+{
+	m_lex = lex;
+	m_syn = syn;
+}
+
+CompilerCore::CSynFuncState::~CSynFuncState()
 {
 }
 
-CSynFuncState::~CSynFuncState()
+void CompilerCore::CSynFuncState::checkSyntax()
 {
 }
 
-void CSynFuncState::checkSyntax()
-{
-}

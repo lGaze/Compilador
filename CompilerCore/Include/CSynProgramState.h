@@ -8,11 +8,13 @@ namespace CompilerCore {
 	{
 	public:
 
-		CSynProgramState(CLexAnalyzer * lex);
+		CSynProgramState();
+		CSynProgramState(CLexAnalyzer * lex, CSynAnalizer * syn);
 		virtual ~CSynProgramState();
 		virtual void checkSyntax();
 
 	private:
-
+		CLexAnalyzer * m_lex;
+		CSynAnalizer * m_syn;
 	};
 }

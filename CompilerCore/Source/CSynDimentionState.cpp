@@ -2,8 +2,10 @@
 
 
 
-CompilerCore::CSynDimentionState::CSynDimentionState(CLexAnalyzer * lex)
+CompilerCore::CSynDimentionState::CSynDimentionState(CLexAnalyzer * lex, CSynAnalizer * syn)
 {
+	m_lex = lex;
+	m_syn = syn;
 }
 
 CompilerCore::CSynDimentionState::~CSynDimentionState()

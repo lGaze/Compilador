@@ -8,12 +8,13 @@
 #include "../Include/CSynDimentionState.h"
 #include "../Include/CSynParamState.h"
 
+
 namespace CompilerCore
 {
 	class CSynAnalizer
 	{
 	public:
-		CSynAnalizer();
+		CSynAnalizer(CLexAnalyzer * lex);
 		~CSynAnalizer();
 	 	void checkSyntax();
 
@@ -22,7 +23,7 @@ namespace CompilerCore
 		CSynProgramState * functionBlock;
 		CSynProgramState * dimention;
 		CSynProgramState * param;
-	
+		CSynProgramState * m_State;
 		
 	private:
 

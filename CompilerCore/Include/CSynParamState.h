@@ -7,11 +7,12 @@ namespace CompilerCore {
 	{
 	public:
 
-		CSynParamState(CLexAnalyzer * lex);
+		CSynParamState(CLexAnalyzer * lex, CSynAnalizer * syn);
 		~CSynParamState();
 		void checkSyntax();
 
 	private:
-
+		CLexAnalyzer * m_lex;
+		CSynAnalizer * m_syn;
 	};
 }

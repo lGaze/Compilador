@@ -1,13 +1,15 @@
 #include "..\Include\CSynFunction_BlockState.h"
 
-CSynFuntion_BlockState::CSynFuntion_BlockState()
+CompilerCore::CSynFuntion_BlockState::CSynFuntion_BlockState(CLexAnalyzer * lex, CSynAnalizer * syn)
+{
+	m_lex = lex;
+	m_syn = syn;
+}
+
+CompilerCore::CSynFuntion_BlockState::~CSynFuntion_BlockState()
 {
 }
 
-CSynFuntion_BlockState::~CSynFuntion_BlockState()
-{
-}
-
-void CSynFuntion_BlockState::checkSyntax()
+void CompilerCore::CSynFuntion_BlockState::checkSyntax()
 {
 }

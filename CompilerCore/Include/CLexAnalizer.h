@@ -63,7 +63,6 @@ namespace CompilerCore
 		bool parseSourceCode(const char *sourceCode);
 		bool addToken(std::string lex, TOKEN_TYPE type, int lineNum);
 		void getTokens(std::vector<Token *> *tokensVec) const;
-
 		bool is_Alpha(const char* currchar);
 		bool is_Digit(const char* currchar);
 		void reset();
@@ -73,6 +72,15 @@ namespace CompilerCore
 			if (tokenToPeek > 0 && tokenToPeek < m_Tokens.size())
 			{
 				return m_Tokens[tokenToPeek];
+			}
+			return nullptr;
+		}
+		inline Token * getNextToken()
+		{
+			int nextToken = m_currentToken++;
+			if (nextToken > 0 && nextToken < m_Tokens.size())
+			{
+				return m_Tokens[nextToken];
 			}
 			return nullptr;
 		}

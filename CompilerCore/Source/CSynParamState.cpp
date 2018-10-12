@@ -1,13 +1,18 @@
 #include "..\Include\CSynParamState.h"
 
-CSynParamState::CSynParamState()
+
+CompilerCore::CSynParamState::CSynParamState(CLexAnalyzer * lex, CSynAnalizer * syn)
+{
+	m_lex = lex;
+	m_syn = syn;
+}
+
+CompilerCore::CSynParamState::~CSynParamState()
 {
 }
 
-CSynParamState::~CSynParamState()
+void CompilerCore::CSynParamState::checkSyntax()
 {
 }
 
-void CSynParamState::checkSyntax()
-{
-}
+
