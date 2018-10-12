@@ -39,7 +39,7 @@ void CompilerCore::CSynVarState::checkSyntax()
 				tempDimen.push_back(stoi(t->getLex()));
 				m_syn->m_State = m_syn->dimention;
 				m_syn->checkSyntax();
-				
+				t = m_lex->getNextToken();
 			}
 			else
 			{
@@ -59,12 +59,11 @@ void CompilerCore::CSynVarState::checkSyntax()
 
 			if (!t->getLex().compare("int") || !t->getLex().compare("float") || !t->getLex().compare("bool") || !t->getLex().compare("string"))
 			{
-				//Errors
-		
+				IDtype.push_back(t->getLex());
 			}
 			else
 			{
-				IDtype.push_back(t->getLex());
+				//Error
 			}
 			if (t->getLex().compare(";"))
 			{

@@ -13,6 +13,12 @@ CompilerCore::CSynParamState::~CSynParamState()
 
 void CompilerCore::CSynParamState::checkSyntax()
 {
+	Token *t = m_lex->peekToken(0);
+	do 
+	{
+		t = m_lex->getNextToken();
+
+	} while (t->getLex().compare(")") == 0);
 }
 
 

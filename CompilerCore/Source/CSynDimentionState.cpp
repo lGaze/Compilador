@@ -14,4 +14,5 @@ CompilerCore::CSynDimentionState::~CSynDimentionState()
 
 void CompilerCore::CSynDimentionState::checkSyntax()
 {
+
 }
