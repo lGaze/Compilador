@@ -7,6 +7,20 @@
 #include "../Include/CSynFunction_BlockState.h"
 #include "../Include/CSynDimentionState.h"
 #include "../Include/CSynParamState.h"
+#include "../Include/CSynAssignState.h"
+#include "../Include/CSynExp_Log_ListState.h"
+#include "../Include/CSynForState.h"
+#include "../Include/CSynFuncState.h"
+#include "../Include/CSynIfState.h"
+#include "../Include/CSynPrintState.h"
+#include "../Include/CSynReadState.h"
+#include "../Include/CSynReturnState.h"
+#include "../Include/CSynSwitchState.h"
+#include "../Include/CSynWhileState.h"
+#include "../Include/CSynStatement_BlockState.h"
+#include "../Include/CSynFunc_CallState.h"
+
+
 
 
 namespace CompilerCore
@@ -24,6 +38,17 @@ namespace CompilerCore
 		CSynProgramState * dimention;
 		CSynProgramState * param;
 		CSynProgramState * m_State;
+		CSynProgramState * assign;
+		CSynProgramState * expLogList;
+		CSynProgramState * forState;
+		CSynProgramState * funcCall;
+		CSynProgramState * ifState;
+		CSynProgramState * print;
+		CSynProgramState * read;
+		CSynProgramState * returnState;
+		CSynProgramState * switchState;
+		CSynProgramState * whileState;
+		CSynProgramState * statementBlock;
 		
 	private:
 
