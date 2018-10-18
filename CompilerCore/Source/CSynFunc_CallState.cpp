@@ -12,4 +12,21 @@ CompilerCore::CSynFunc_CallState::~CSynFunc_CallState()
 
 void CompilerCore::CSynFunc_CallState::checkSyntax()
 {
+	Token * t = m_lex->getNextToken();
+
+	if (!t->getLex().compare("("))
+	{
+		m_syn->m_State = m_syn->expLogList;
+		m_syn->m_State->checkSyntax();
+		t = m_lex->getNextToken();
+	}
+	else
+	{
+		//error
+	}
+
+	if (t->getLex().compare(";"))
+	{
+		//Error
+	}
 }

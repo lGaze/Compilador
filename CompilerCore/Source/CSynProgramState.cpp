@@ -30,7 +30,6 @@ void CompilerCore::CSynProgramState::checkSyntax()
 		m_syn->m_State = m_syn->func;
 		m_syn->m_State->checkSyntax();
 		t = m_lex->getNextToken();
-
 	}
-
+	
 }
