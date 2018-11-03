@@ -1,6 +1,8 @@
 #pragma once
 #include "../Include/CLocalNode.h"
 
+
+
 enum E_SCOPE
 {
 	UNDEFINED = 0,
@@ -13,11 +15,12 @@ enum E_SCOPE
 class CGlobalNode
 {
 public:
+
 	CGlobalNode();
 	~CGlobalNode();
 
-	string m_name;
-	string m_type;
+	std::string m_name;
+	std::string m_type;
 	E_SCOPE m_scope;
 	int m_dimen;
 	void * m_value;

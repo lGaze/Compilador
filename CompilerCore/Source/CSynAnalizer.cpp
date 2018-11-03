@@ -24,6 +24,7 @@ CompilerCore::CSynAnalizer::CSynAnalizer(CLexAnalyzer * lex)
 	switchState     = new CSynSwitchState(m_lex, this);
 	whileState      = new CSynWhileState(m_lex, this);
 	statementBlock  = new CSynSatement_BlockState(m_lex, this);
+	expLog			= new CSynExpLogState(m_lex, this);
 
 }
 

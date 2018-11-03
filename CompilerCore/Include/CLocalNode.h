@@ -1,16 +1,41 @@
 #pragma once
+#include <iostream>
 
-class CLocalNode
+namespace CompilerCore
 {
-public:
-	CLocalNode();
-	~CLocalNode();
+	enum SCOPE
+	{
+		UNDEFINED = 0,
+		FUNC,
+		GLOBAL_VAR,
+		LOCAL_VAR,
+		PARAM
+	};
 
-	string m_type;
-	string m_funcName;
-	int m_dimen;
-	void * m_value;
-	CLocalNode * m_localNode;
-private:
+	struct Data
+	{
+		std::string type;
+		SCOPE scope;
+		int dimen;
+		void * value;
+		CLocalNode * localNode;
+		std::string funcName;
+	};
 
-};
+	class CLocalNode
+	{
+	public:
+
+		CLocalNode(Data data);
+		~CLocalNode();
+
+		std::string m_type;
+		std::string m_funcName;
+		int m_dimen;
+		void * m_value;
+		CLocalNode * m_localNode;
+
+	private:
+
+	};
+}

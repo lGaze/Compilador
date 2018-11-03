@@ -12,4 +12,5 @@ CompilerCore::CSynFuntion_BlockState::~CSynFuntion_BlockState()
 
 void CompilerCore::CSynFuntion_BlockState::checkSyntax()
 {
+
 }

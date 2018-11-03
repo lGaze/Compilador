@@ -3,12 +3,12 @@
 
 namespace CompilerCore {
 
-	class CSynFuntion_BlockState : public CSynProgramState
+	class CSynExpLogState : public CSynProgramState
 	{
 	public:
 
-		CSynFuntion_BlockState(CLexAnalyzer * lex, CSynAnalizer * syn);
-		~CSynFuntion_BlockState();
+		CSynExpLogState(CLexAnalyzer * lex, CSynAnalizer * syn);
+		~CSynExpLogState();
 		void checkSyntax();
 
 	private:

@@ -23,8 +23,8 @@ void CompilerCore::CSynIfState::checkSyntax()
 
 	if (!t->getType() == ID || !t->getType() == OPER_LOGICO_UNARIO)
 	{
-		//m_syn->m_State = m_syn->expLog;
-		//m_syn->checkSyntax();
+		m_syn->m_State = m_syn->expLog;
+		m_syn->checkSyntax();
 		t = m_lex->getNextToken();
 	}
 	else

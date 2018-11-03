@@ -19,7 +19,7 @@
 #include "../Include/CSynWhileState.h"
 #include "../Include/CSynStatement_BlockState.h"
 #include "../Include/CSynFunc_CallState.h"
-
+#include "../Include/CSynExpLogState.h"
 
 
 
@@ -49,6 +49,7 @@ namespace CompilerCore
 		CSynProgramState * switchState;
 		CSynProgramState * whileState;
 		CSynProgramState * statementBlock;
+		CSynProgramState * expLog;
 		
 	private:
 

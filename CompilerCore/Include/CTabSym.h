@@ -23,6 +23,7 @@ public:
 	bool updateSymbolType();
 	void reset();
 
+
 private:
 
 };
