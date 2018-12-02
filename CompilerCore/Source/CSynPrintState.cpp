@@ -25,6 +25,23 @@ void CompilerCore::CSynPrintState::checkSyntax()
 		//error
 	}
 
+  if (t->getType() == INT
+    ||t->getType() == FLOAT
+    ||t->getType() == ID
+    ||t->getType() == STRING)
+  {
+    //Error
+  }
+
+  t = m_lex->getNextToken();
+
+  if (t->getLex().compare(")"))
+  {
+    //Error
+  }
+  
+  t = m_lex->getNextToken();
+
 	if (t->getLex().compare(";"))
 	{
 		//Error

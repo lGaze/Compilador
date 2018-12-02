@@ -17,7 +17,7 @@ CompilerCore::CSynProgramState::~CSynProgramState()
 void CompilerCore::CSynProgramState::checkSyntax()
 {
 	Token * t = m_lex->peekToken(0);
-
+  Token * nt = t;
 	while (t->getLex().compare("var") == 0)
 	{
     m_syn->nameFunc = " global";
@@ -28,6 +28,8 @@ void CompilerCore::CSynProgramState::checkSyntax()
 
 	while (t->getLex().compare("function") == 0)
 	{
+    nt = m_lex->getNextToken();
+    m_syn->nameFunc = nt->getLex();
 		m_syn->m_State = m_syn->func;
 		m_syn->m_State->checkSyntax();
 		t = m_lex->getNextToken();

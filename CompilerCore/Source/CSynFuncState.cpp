@@ -18,17 +18,21 @@ void CompilerCore::CSynFuncState::checkSyntax()
 	{
 		//Error 
 	}
+  else
+  {
+    m_syn->nameFunc = t->getLex();
+  }
 
 	t = m_lex->getNextToken();
 
-	if (!t->getLex().compare("(") == 0)
+	if (!t->getLex().compare("("))
 	{
-		//Error 
+    m_syn->m_State = m_syn->param;
+    m_syn->m_State->checkSyntax();
 	}
 	else
 	{
-		m_syn->m_State = m_syn->param;
-		m_syn->m_State->checkSyntax();
+	  //Error
 	}
 	t = m_lex->getNextToken();
 
@@ -48,6 +52,17 @@ void CompilerCore::CSynFuncState::checkSyntax()
 	}
 
 	t = m_lex->getNextToken();
+
+  if (!t->getLex().compare("{"))
+  {
+    m_syn->m_State = m_syn->functionBlock;
+    m_syn->m_State->checkSyntax();
+  }
+  else
+  {
+    //Error
+
+  }
 
 	
 }
