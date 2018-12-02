@@ -143,10 +143,12 @@
     <ClInclude Include="Include\CompilerCore.h" />
     <ClInclude Include="Include\CSynAnalizer.h" />
     <ClInclude Include="Include\CSynAssignState.h" />
+    <ClInclude Include="Include\CSynExpLogState.h" />
     <ClInclude Include="Include\CSynExp_Log_ListState.h" />
     <ClInclude Include="Include\CSynForState.h" />
     <ClInclude Include="Include\CSynFunc_CallState.h" />
     <ClInclude Include="Include\CSynIfState.h" />
+    <ClInclude Include="Include\CSynMainState.h" />
     <ClInclude Include="Include\CSynPrintState.h" />
     <ClInclude Include="Include\CSynProgramState.h" />
     <ClInclude Include="Include\CSynDimentionState.h" />
@@ -172,10 +174,12 @@
     <ClCompile Include="Source\CompilerCore.cpp" />
     <ClCompile Include="Source\CSynAnalizer.cpp" />
     <ClCompile Include="Source\CSynAssignState.cpp" />
+    <ClCompile Include="Source\CSynExpLogState.cpp" />
     <ClCompile Include="Source\CSynExp_Log_ListState.cpp" />
     <ClCompile Include="Source\CSynForState.cpp" />
     <ClCompile Include="Source\CSynFunc_CallState.cpp" />
     <ClCompile Include="Source\CSynIfState.cpp" />
+    <ClCompile Include="Source\CSynMainState.cpp" />
     <ClCompile Include="Source\CSynPrintState.cpp" />
     <ClCompile Include="Source\CSynProgramState.cpp" />
     <ClCompile Include="Source\CSynDimentionState.cpp" />

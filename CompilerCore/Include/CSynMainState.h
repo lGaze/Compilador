@@ -3,17 +3,15 @@
 
 namespace CompilerCore {
 
-	class CSynVarState : public CSynProgramState
+	class CSynMainState : public CSynProgramState
 	{
 	public:
 
-		CSynVarState(CLexAnalyzer * lex, CSynAnalizer * syn);
-		~CSynVarState();
+		CSynMainState(CLexAnalyzer * lex, CSynAnalizer * syn);
+		~CSynMainState();
 		void checkSyntax();
 
 	private:
-    
-    
 		CLexAnalyzer * m_lex;
 		CSynAnalizer * m_syn;
 	};

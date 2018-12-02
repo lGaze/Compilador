@@ -16,10 +16,11 @@ CompilerCore::CSynProgramState::~CSynProgramState()
 
 void CompilerCore::CSynProgramState::checkSyntax()
 {
-	Token * t = m_lex->getNextToken();
+	Token * t = m_lex->peekToken(0);
 
 	while (t->getLex().compare("var") == 0)
 	{
+    m_syn->nameFunc = " global";
 		m_syn->m_State = m_syn->var;
 		m_syn->m_State->checkSyntax();
 		t = m_lex->getNextToken();
@@ -32,4 +33,15 @@ void CompilerCore::CSynProgramState::checkSyntax()
 		t = m_lex->getNextToken();
 	}
 	
+	if (t->getLex().compare("main") != 0)
+	{
+		//Error
+	}
+	else
+	{
+		m_syn->m_State = m_syn->main;
+		m_syn->m_State->checkSyntax();
+		t = m_lex->getNextToken();
+	}
+
 }

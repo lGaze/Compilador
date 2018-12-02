@@ -1,6 +1,8 @@
 #include "..\Include\CLexAnalizer.h"
 
-CompilerCore::CLexAnalyzer::CLexAnalyzer(ErrorsModule ^ errorsModule) :managedRef_errorsModule(errorsModule)
+CompilerCore::CLexAnalyzer::CLexAnalyzer(ErrorsModule ^ errorsModule) :
+  managedRef_errorsModule(errorsModule),
+  m_currentToken(0)
 {
 	m_Keywords["var"		] = "";
 	m_Keywords["main"		] = "";

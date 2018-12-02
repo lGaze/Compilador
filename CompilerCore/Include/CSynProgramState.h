@@ -14,6 +14,7 @@ namespace CompilerCore {
 		virtual void checkSyntax();
 
 	private:
+
 		CLexAnalyzer * m_lex;
 		CSynAnalizer * m_syn;
 	};

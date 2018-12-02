@@ -1,31 +1,17 @@
 #pragma once
 #include "../Include/CLocalNode.h"
 
-
-
-enum E_SCOPE
+namespace CompilerCore
 {
-	UNDEFINED = 0,
-	FUNC,
-	GLOBAL_VAR,
-	LOCAL_VAR,
-	PARAM
-};
-
-class CGlobalNode
-{
-public:
-
-	CGlobalNode();
-	~CGlobalNode();
-
-	std::string m_name;
-	std::string m_type;
-	E_SCOPE m_scope;
-	int m_dimen;
-	void * m_value;
-	CLocalNode * m_localNode;
-
-private:
-
-};
+  class CGlobalNode
+  {
+  public:
+  
+  	CGlobalNode(Data data, std::string name);
+  	~CGlobalNode();
+  
+  	std::string m_name;
+    Data m_data;
+    CLocalNode* next = nullptr;
+  };
+}

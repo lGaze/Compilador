@@ -93,6 +93,12 @@
     <ClInclude Include="Include\CSynExp_Log_ListState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Include\CSynExpLogState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\CSynMainState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -171,6 +177,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\CSynExp_Log_ListState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSynExpLogState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CSynMainState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

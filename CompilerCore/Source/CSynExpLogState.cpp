@@ -14,5 +14,5 @@ CompilerCore::CSynExpLogState::~CSynExpLogState()
 void CompilerCore::CSynExpLogState::checkSyntax()
 {
 	Token * t = m_lex->getNextToken();
-
+	
 }

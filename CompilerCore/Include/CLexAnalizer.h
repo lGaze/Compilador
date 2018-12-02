@@ -52,8 +52,8 @@ namespace CompilerCore
 		std::vector<Token *> m_Tokens;
 		LEX_STATE m_state;
 
-		int m_currentToken = 0;
-
+		int m_currentToken;
+    int m_currSynToken = 0;
 	public:
 
 		CLexAnalyzer(ErrorsModule ^errorsModule);
@@ -68,8 +68,8 @@ namespace CompilerCore
 		void reset();
 		inline Token * peekToken(int i)
 		{
-			int tokenToPeek = m_currentToken + i;
-			if (tokenToPeek > 0 && tokenToPeek < m_Tokens.size())
+			int tokenToPeek = m_currSynToken + i;
+			if (tokenToPeek >= 0 && tokenToPeek < m_Tokens.size())
 			{
 				return m_Tokens[tokenToPeek];
 			}
@@ -77,8 +77,8 @@ namespace CompilerCore
 		}
 		inline Token * getNextToken()
 		{
-			int nextToken = m_currentToken++;
-			if (nextToken > 0 && nextToken < m_Tokens.size())
+			int nextToken = ++m_currSynToken;
+			if (nextToken >= 0 && nextToken < m_Tokens.size())
 			{
 				return m_Tokens[nextToken];
 			}
