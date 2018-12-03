@@ -24,11 +24,15 @@ void CompilerCore::CSynDimentionState::checkSyntax()
     }
     else
     {
-      //Error
+      /* ERRORs
+      std::string tempError = "Se esperaba "]" ";
+      m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
     }
   }
   else
   {
-    //Error
+    /* ERROR
+    std::string tempError = "Se esperaba un tipo INT ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
   }
 }

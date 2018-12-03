@@ -1,5 +1,5 @@
 #include "..\Include\CSynVarState.h"
-#include "..\Include\CTabSym.h"
+
 
 CompilerCore::CSynVarState::CSynVarState(CLexAnalyzer * lex, CSynAnalizer * syn)
 {
@@ -26,7 +26,9 @@ void CompilerCore::CSynVarState::checkSyntax()
 
 			if (t->getType() != ID)
 			{
-				//Error
+          /* ERROR
+          std::string tempError = "Se esperaba un ID";
+           m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 			}
 			else
 			{
@@ -42,19 +44,21 @@ void CompilerCore::CSynVarState::checkSyntax()
 				tempDimen.push_back(stoi(t->getLex()));
 				m_syn->m_State = m_syn->dimention;
 				m_syn->checkSyntax();
+			  t = m_lex->getNextToken();
 			}
 			else
 			{
 					tempDimen.push_back(0);
 			}
 
-			t = m_lex->getNextToken();
 
 		} while (!t->getLex().compare(","));
 
 			if (!t->getLex().compare(":"))
 			{
-				//Error
+        /* ERROR
+        std::string tempError = "Se esperaba ":" ";
+        m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 			}
 
 			t = m_lex->getNextToken();
@@ -74,8 +78,13 @@ void CompilerCore::CSynVarState::checkSyntax()
 			}
 			else
 			{
-				//Error
+        /* ERROR
+        std::string tempError = "No se encontro tipo";
+        m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 			}
+
+      t = m_lex->getNextToken();
+
 			if (t->getLex().compare(";"))
 			{
 				

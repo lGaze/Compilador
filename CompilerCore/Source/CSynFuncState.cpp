@@ -16,8 +16,10 @@ void CompilerCore::CSynFuncState::checkSyntax()
 	Token * t = m_lex->getNextToken();
 	if (t->getType() != TOKEN_TYPE::ID)
 	{
-		//Error 
-	}
+    /* ERROR
+      std::string tempError = "Se esperaba un ID ";
+      m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
+  }
   else
   {
     m_syn->nameFunc = t->getLex();
@@ -32,13 +34,17 @@ void CompilerCore::CSynFuncState::checkSyntax()
 	}
 	else
 	{
-	  //Error
+    /* ERROR
+    std::string tempError = "Se esperaba "(" ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 	}
 	t = m_lex->getNextToken();
 
 	if (!t->getLex().compare(":"))
 	{
-		//Error
+    /* ERROR
+   std::string tempError = "Se esperaba ":" ";
+      m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 	}
 	t = m_lex->getNextToken();
 
@@ -48,7 +54,9 @@ void CompilerCore::CSynFuncState::checkSyntax()
 	}
 	else
 	{
-		//Error 
+    /* ERROR
+    std::string tempError = "Se esperaba un tipo ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 	}
 
 	t = m_lex->getNextToken();
@@ -60,8 +68,9 @@ void CompilerCore::CSynFuncState::checkSyntax()
   }
   else
   {
-    //Error
-
+    /* ERROR
+    std::string tempError = "Se esperaba "{" ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
   }
 
 	

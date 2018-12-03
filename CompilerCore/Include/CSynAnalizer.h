@@ -1,7 +1,7 @@
 #pragma once
 #include "../Include/CLexAnalizer.h"
 #include "../Include/CErrorsModule.h"
-
+#include "..\Include\CTabSym.h"
 
 
 
@@ -14,6 +14,8 @@ namespace CompilerCore
 		CSynAnalizer(CLexAnalyzer * lex);
 		~CSynAnalizer();
 	 	void checkSyntax();
+    void addError(int linenum, const char * desc, const char *line);
+   /* void addSymbol(std::string name, SCOPE::E scope, int dimen, std::string type);*/
 
 		CSynProgramState * var;
 		CSynProgramState * func;

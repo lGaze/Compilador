@@ -44,6 +44,13 @@ bool CompilerCore::ErrorsModule::addErrorLex(int lineNum, const char *desc, cons
 	return addError(CompilerCore::ERROR_PHASE::LEXIC_ANALYZER, lineNum, strDesc, strLine);
 }
 
+bool CompilerCore::ErrorsModule::addErrorSyn(int lineNum, const char * desc, const char * line)
+{
+  String ^ strDesc = gcnew String(desc);
+  String ^ strLine = gcnew String(line);
+  return addError(CompilerCore::ERROR_PHASE::SYNTAX_ANALYZER, lineNum, strDesc, strLine);
+}
+
 /*
 */
 bool CompilerCore::ErrorsModule::addError(ERROR_PHASE errorPhase, int lineNumber, String ^ errorDesc, String ^ errorLine)

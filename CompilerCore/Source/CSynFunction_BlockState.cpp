@@ -12,7 +12,7 @@ CompilerCore::CSynFuntion_BlockState::~CSynFuntion_BlockState()
 
 void CompilerCore::CSynFuntion_BlockState::checkSyntax()
 {
-  Token *t = m_lex->peekToken(0);
+  Token *t = m_lex->getNextToken();
 
   while (t->getLex().compare("var") == 0)
   {
@@ -65,12 +65,20 @@ void CompilerCore::CSynFuntion_BlockState::checkSyntax()
 
   if (t->getLex().compare("return"))
   {
-    //Error
+    /* ERROR
+    std::string tempError = "No se encontro "return" ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
   }
-
+  else
+  {
+    m_syn->m_State = m_syn->returnState;
+    m_syn->checkSyntax();
+  }
   if (t->getLex().compare(";"))
   {
-    //Error
+    /* ERROR
+    std::string tempError = "Se esperaba ";" ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 
   }
 

@@ -56,3 +56,8 @@ void CompilerCore::CSynAnalizer::checkSyntax()
 {
 	m_State->checkSyntax();
 }
+
+void CompilerCore::CSynAnalizer::addError(int linenum, const char * desc, const char * line)
+{
+  m_errorModule->addErrorSyn(linenum, desc, line);
+}

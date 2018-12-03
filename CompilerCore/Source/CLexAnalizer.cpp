@@ -2,7 +2,8 @@
 
 CompilerCore::CLexAnalyzer::CLexAnalyzer(ErrorsModule ^ errorsModule) :
   managedRef_errorsModule(errorsModule),
-  m_currentToken(0)
+  m_currentToken(0),
+  m_lastToken(new Token("", UNDEFINED, 0))
 {
 	m_Keywords["var"		] = "";
 	m_Keywords["main"		] = "";

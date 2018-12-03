@@ -54,6 +54,8 @@ namespace CompilerCore
 
 		int m_currentToken;
     int m_currSynToken = 0;
+    Token * m_lastToken;
+
 	public:
 
 		CLexAnalyzer(ErrorsModule ^errorsModule);
@@ -82,7 +84,7 @@ namespace CompilerCore
 			{
 				return m_Tokens[nextToken];
 			}
-			return nullptr;
+			return m_lastToken;
 		}
 	};
 }

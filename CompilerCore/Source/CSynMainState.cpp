@@ -15,14 +15,18 @@ void CompilerCore::CSynMainState::checkSyntax()
 	Token * t = m_lex->getNextToken();
 	if (!t->getLex().compare("(") || !t->getLex().compare(""))
 	{
-    //Error
+    /* ERROR
+    std::string tempError = "Se esperaba "(" ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 	}
 
 	t = m_lex->getNextToken();
 
 	if (!t->getLex().compare(")") || !t->getLex().compare(" "))
 	{
-		//Error
+    /* ERROR
+  std::string tempError = "Se esperaba ")" ";
+  m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
 	}
 
 	t = m_lex->getNextToken();
@@ -35,7 +39,9 @@ void CompilerCore::CSynMainState::checkSyntax()
 	}
   else
   {
-    //Error
+    /* ERROR
+    std::string tempError = "Se esperaba "{" ";
+    m_syn->addError(t->getLineNumber(), tempError.c_str(), "");*/
   }
 
 }
