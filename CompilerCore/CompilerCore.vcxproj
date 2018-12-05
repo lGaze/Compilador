@@ -137,10 +137,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Include\CErrorsModule.h" />
+    <ClInclude Include="Include\CExplog.h" />
+    <ClInclude Include="Include\CExpLogTreeNode.h" />
     <ClInclude Include="Include\CGlobalNode.h" />
     <ClInclude Include="Include\CLexAnalizer.h" />
     <ClInclude Include="Include\CLocalNode.h" />
     <ClInclude Include="Include\CompilerCore.h" />
+    <ClInclude Include="Include\CSemAnalizer.h" />
     <ClInclude Include="Include\CSynAnalizer.h" />
     <ClInclude Include="Include\CSynAssignState.h" />
     <ClInclude Include="Include\CSynExpLogState.h" />
@@ -168,10 +171,13 @@
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Source\CErrorsModule.cpp" />
+    <ClCompile Include="Source\CExplog.cpp" />
+    <ClCompile Include="Source\CExpLogTreeNode.cpp" />
     <ClCompile Include="Source\CGlobalNode.cpp" />
     <ClCompile Include="Source\CLexAnalizer.cpp" />
     <ClCompile Include="Source\CLocalNode.cpp" />
     <ClCompile Include="Source\CompilerCore.cpp" />
+    <ClCompile Include="Source\CSemAnalizer.cpp" />
     <ClCompile Include="Source\CSynAnalizer.cpp" />
     <ClCompile Include="Source\CSynAssignState.cpp" />
     <ClCompile Include="Source\CSynExpLogState.cpp" />

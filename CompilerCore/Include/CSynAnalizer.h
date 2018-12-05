@@ -2,6 +2,7 @@
 #include "../Include/CLexAnalizer.h"
 #include "../Include/CErrorsModule.h"
 #include "..\Include\CTabSym.h"
+#include "../Include/CSemAnalizer.h"
 
 
 
@@ -11,7 +12,7 @@ namespace CompilerCore
 	class CSynAnalizer
 	{
 	public:
-		CSynAnalizer(CLexAnalyzer * lex);
+		CSynAnalizer(CLexAnalyzer * lex, CSemAnalizer * sem);
 		~CSynAnalizer();
 	 	void checkSyntax();
     void addError(int linenum, const char * desc, const char *line);
@@ -41,6 +42,7 @@ namespace CompilerCore
 
 	private:
 
+    CSemAnalizer * m_sem;
 		CLexAnalyzer * m_lex;
 		gcroot<ErrorsModule ^> m_errorModule;
 
