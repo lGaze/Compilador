@@ -16,11 +16,13 @@ namespace CompilerCore
     std::vector<CExplog*> mexpressions;
     void addExpLog(std::vector<Token*> m_exp, string m_funcName, int linenum);
     void checkExpressions();
+
+    void addError(int linenum, const char * desc, const char *line);
   
   private:
   
-    CLexAnalyzer * m_lex;
     gcroot<ErrorsModule ^> m_errorModule;
+    CLexAnalyzer * m_lex;
   
   };
 }

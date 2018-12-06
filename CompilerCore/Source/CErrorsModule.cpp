@@ -51,6 +51,15 @@ bool CompilerCore::ErrorsModule::addErrorSyn(int lineNum, const char * desc, con
   return addError(CompilerCore::ERROR_PHASE::SYNTAX_ANALYZER, lineNum, strDesc, strLine);
 }
 
+bool CompilerCore::ErrorsModule::addErrorSem(int lineNum, const char * desc, const char * line)
+{
+  String ^ strDesc = gcnew String(desc);
+  String ^ strLine = gcnew String(line);
+  return addError(CompilerCore::ERROR_PHASE::SEMANTIC_ANALYZER, lineNum, strDesc, strLine);
+}
+
+
+
 /*
 */
 bool CompilerCore::ErrorsModule::addError(ERROR_PHASE errorPhase, int lineNumber, String ^ errorDesc, String ^ errorLine)

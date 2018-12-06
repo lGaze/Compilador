@@ -171,7 +171,7 @@ void CompilerCore::CExplog::buildTree()
   tree.top();
 }
 
-bool CompilerCore::CExplog::validateTree()
+void CompilerCore::CExplog::validateTree()
 {
-  return false;
+   m_tree->inOrder();
 }

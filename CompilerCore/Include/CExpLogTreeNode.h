@@ -1,6 +1,8 @@
 #pragma once
 #include "../Include/CToken.h"
+#include "..\Include\CSemAnalizer.h"
 
+class CSemAnalizer;
 namespace CompilerCore
 {
   enum NODE_RESULT
@@ -26,7 +28,11 @@ namespace CompilerCore
     NODE_RESULT m_expectedResultLeft;
     NODE_RESULT m_expectedResultRight;
 
+   void inOrder();
+
   private:
+
+    CSemAnalizer * sem;
 
   };
 }

@@ -31,7 +31,7 @@ namespace CompilerCore
 
     void createPostfix();
     void buildTree();
-    bool validateTree();
+    void validateTree();
    
   };
 }

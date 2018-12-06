@@ -1,6 +1,5 @@
 #include "..\Include\CExpLogTreeNode.h"
 
-
 CompilerCore::CExpLogTreeNode::CExpLogTreeNode(Token* t)
 {
   m_left = nullptr;
@@ -57,3 +56,20 @@ CompilerCore::CExpLogTreeNode::CExpLogTreeNode(Token* t)
 CompilerCore::CExpLogTreeNode::~CExpLogTreeNode()
 {
 }
+
+void CompilerCore::CExpLogTreeNode::inOrder()
+{
+  if (m_right != nullptr)
+  {
+    m_right->inOrder();
+  }
+  
+   //Valida los tokens y manda errores
+   //sem->addError()
+  
+  if (m_left != nullptr)
+  {
+    m_left->inOrder();
+  }
+}
+
